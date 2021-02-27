@@ -1,8 +1,9 @@
 import pandas as pd
 import re
 
+
 #Loading raw survey
-raw_survey=pd.read_csv('../portuguese_financialmarlet_covid19_survey.csv')
+raw_survey=pd.read_csv(r'c:/Users/pedro/Desktop/FinancialMarket_PortugueseSample/Mercado Financeiro_ Impacto da COVID-19 nos hábitos dos Portugueses .csv')
 
 #Removing timestamp colum, we dont need it, just noise in data
 survey = raw_survey.drop(labels='Timestamp',axis=1)
@@ -60,3 +61,4 @@ reason=reason['qual_a_razão_para_ter_começado_em_investir'].str.get_dummies(se
 
 #I might need to have everything in the same dataframe
 #survey = pd.concat([survey.drop('qual_a_plataforma_que_usa_para_investir',1),platform],1)
+
