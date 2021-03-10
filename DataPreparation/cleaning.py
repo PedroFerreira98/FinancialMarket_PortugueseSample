@@ -60,5 +60,19 @@ reason=reason['qual_a_razão_para_ter_começado_em_investir'].str.get_dummies(se
 
 
 #I might need to have everything in the same dataframe
-#survey = pd.concat([survey.drop('qual_a_plataforma_que_usa_para_investir',1),platform],1)
+survey = pd.concat([survey,platform],1)
+survey = pd.concat([survey,investments],1)
+survey = pd.concat([survey,reason],1)
 
+survey.loc[(survey['caso_tenha_respondido_que_não_na_pergunta_acima,_já_investiu_no_passado'].isna()) & (survey.investe_atualmente_no_mercado_financeiro == 'Sim'), 'caso_tenha_respondido_que_não_na_pergunta_acima,_já_investiu_no_passado'] = 'Não se aplica'
+survey.loc[(survey['caso_tenha_respondido_que_não_na_pergunta_acima,_já_investiu_no_passado'].isna()) & (survey.investe_atualmente_no_mercado_financeiro == 'Não'), 'caso_tenha_respondido_que_não_na_pergunta_acima,_já_investiu_no_passado'] = 'Não se aplica'
+
+survey.loc[(survey['ano_que_começou_a_investir'].isna() ), 'ano_que_começou_a_investir'] = 'Indefinido'
+survey.loc[(survey['qual_o_risco_que_está_disposto_a_tomar'].isna() ), 'qual_o_risco_que_está_disposto_a_tomar'] = 'Indefinido'
+survey.loc[(survey['qual_o_retorno_em_%(percentagem)_que_espera_ter_anualmente'].isna() ), 'qual_o_retorno_em_%(percentagem)_que_espera_ter_anualmente'] = 'Indefinido'
+
+
+
+
+
+survey.to_csv('survey.csv',index=False)
